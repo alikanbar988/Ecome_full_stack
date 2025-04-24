@@ -15,7 +15,7 @@ class SubCategoryController extends Controller
 {
     public function index()
     {
-        $categories =Category::all();
+        $categories = Category::all();   
     
         return view ('admin.subcategory.create', compact('categories'));
     }
@@ -36,12 +36,12 @@ class SubCategoryController extends Controller
     {
         $request->validate([
             'subcategory_name' => 'required|string|max:255',
-            'category_id' => 'required|exists:categories,id', // Validate that the category exists
+            'category_name' => 'required|unique|exists:categories,id', // Validate that the category exists
         ]);
     
         subcategory::create([
             'subcategory_name' => $request->input('subcategory_name'),
-            'category_id' => $request->input('category_id'),
+            'category_name' => $request->input('category_name'),
         ]);
        
            $subcategories = new subcategory();
@@ -52,6 +52,7 @@ class SubCategoryController extends Controller
            {
                $request->validate([
                    'subcategory_name' => 'required|string|max:255',
+                     'category_name' => 'required|exists:categories,id', // Validate that the category exists
                ]);
            
                $subcategory = subcategory::findOrFail($id);

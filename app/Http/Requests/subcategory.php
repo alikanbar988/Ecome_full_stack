@@ -23,7 +23,7 @@ class subcategory extends FormRequest
     {
         return [
            'subcategory_name' => 'required|string|max:255',
-            'category_id' => 'required|exists:categories,id',
+            'category_name' => 'required|exists:categories,id',
         ];
     }
 }
